@@ -138,27 +138,46 @@ class getKeyStringTests {
 
     @Test
     void pushEntriesPushSingleEntry() {
+        List<BibEntry> entries = new ArrayList<BibEntry>();
+        entries.add(new BibEntry("Smith2020"));
 
+        assertDoesNotThrow(() -> pushToEmacs.pushEntries(entries));
     }
 
     @Test
     void pushEntriesPushMultipleEntries() {
+        List<BibEntry> entries = new ArrayList<BibEntry>();
+        entries.add(new BibEntry("Smith2020"));
+        entries.add(new BibEntry("Lee2021"));
 
+        assertDoesNotThrow(() -> pushToEmacs.pushEntries(entries));
     }
 
     @Test
     void pushEntriesMissingCitation() {
+        List<BibEntry> entries = new ArrayList<BibEntry>();
+        entries.add(new BibEntry());
 
+        assertDoesNotThrow(() -> pushToEmacs.pushEntries(entries));
     }
 
     @Test
     void pushEntriesEmptyEntryList() {
+        List<BibEntry> entries = new ArrayList<BibEntry>();
 
+        assertDoesNotThrow(() -> pushToEmacs.pushEntries(entries));
     }
 
     @Test
     void pushEntriesLargeEntrySet() {
+        List<BibEntry> entries = new ArrayList<BibEntry>();
 
+        for(int i = 0; i < 100; i++)
+        {
+            entries.add(new BibEntry("Entry" + i));
+        }
+
+        assertDoesNotThrow(() -> pushToEmacs.pushEntries(entries));
     }
 
     @Test
