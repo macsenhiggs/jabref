@@ -10,10 +10,8 @@ import org.jabref.logic.util.NotificationService;
 import org.jabref.model.entry.BibEntry;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Named;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -25,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
     Creates a list for each application that extends AbstractPushToApplication to ensure each one's functionality for all tests
  */
 
-class getKeyStringTests {
+class GetKeyStringTests {
     private static ArrayList<AbstractPushToApplication> pushToList;
 
     //required to get priority over MethodSource tests
@@ -75,66 +73,76 @@ class getKeyStringTests {
         assertEquals(expected, result);
     }
 
-    //existing tests from Sawyer's first commit, simply need to be reworked for new testing method
-    //with display name, parameterized test, and method source.
-    /*
-    @Test
-    void keyStringSingleValidEntry() {
+    @ParameterizedTest(name = "Application: {0}")
+    @MethodSource("editorProvider")
+    @DisplayName("Generic Test for Getting Single Valid Entry Key String")
+    void keyStringSingleValidEntry(AbstractPushToApplication pta) {
         List<BibEntry> entries = new ArrayList<BibEntry>();
         entries.add(new BibEntry("Smith2020"));
 
-        String result = pushToEmacs.getKeyString(entries, ",");
+        String result = pta.getKeyString(entries, ",");
         String expected = "Smith2020";
 
         assertEquals(expected, result);
     }
 
-    @Test
-    void keyStringMultipleValidEntries() {
+    @ParameterizedTest(name = "Application: {0}")
+    @MethodSource("editorProvider")
+    @DisplayName("Generic Test for Getting Multiple Valid Entry Key String")
+    void keyStringMultipleValidEntries(AbstractPushToApplication pta) {
         List<BibEntry> entries = new ArrayList<BibEntry>();
         entries.add(new BibEntry("Smith2020"));
         entries.add(new BibEntry("Lee2021"));
 
-        String result = pushToEmacs.getKeyString(entries, ",");
+        String result = pta.getKeyString(entries, ",");
         String expected = "Smith2020,Lee2021";
 
         assertEquals(expected, result);
     }
 
-    @Test
-    void keyStringEntryMissingCitationKey() {
+    @ParameterizedTest(name = "Application: {0}")
+    @MethodSource("editorProvider")
+    @DisplayName("Generic Test for Getting Missing Entry Key String")
+    void keyStringEntryMissingCitationKey(AbstractPushToApplication pta) {
         List<BibEntry> entries = new ArrayList<BibEntry>();
         entries.add(new BibEntry());
 
-        String result = pushToEmacs.getKeyString(entries, ",");
+        String result = pta.getKeyString(entries, ",");
         String expected = "";
 
         assertEquals(expected, result);
     }
 
-    @Test
-    void keyStringMixedEntries() {
+    @ParameterizedTest(name = "Application: {0}")
+    @MethodSource("editorProvider")
+    @DisplayName("Generic Test for Getting Mixed Entry Key String")
+    void keyStringMixedEntries(AbstractPushToApplication pta) {
         List<BibEntry> entries = new ArrayList<BibEntry>();
         entries.add(new BibEntry("Smith2020"));
         entries.add(new BibEntry());
 
-        String result = pushToEmacs.getKeyString(entries, ",");
+        String result = pta.getKeyString(entries, ",");
         String expected = "Smith2020";
 
         assertEquals(expected, result);
     }
 
-    @Test
-    void keyStringAlternateDelimiter() {
+    @ParameterizedTest(name = "Application: {0}")
+    @MethodSource("editorProvider")
+    @DisplayName("Generic Test for Getting Alternate Delimiter Entry Key String")
+    void keyStringAlternateDelimiter(AbstractPushToApplication pta) {
         List<BibEntry> entries = new ArrayList<BibEntry>();
         entries.add(new BibEntry("Smith2020"));
         entries.add(new BibEntry("Lee2021"));
 
-        String result = pushToEmacs.getKeyString(entries, ";");
+        String result = pta.getKeyString(entries, ";");
         String expected = "Smith2020;Lee2021";
 
         assertEquals(expected, result);
     }
+
+    /*
+
 
     @Test
     void pushEntriesPushSingleEntry() {
